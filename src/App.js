@@ -7,7 +7,7 @@ function App() {
       <ExpenseItem
         title="Car Insurance"
         price="₹10,000"
-        date={new Date().toDateString()}
+        date={new Date()}
       />
     </div>
   );

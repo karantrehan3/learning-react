@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./ExpenseForm";
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
   const [userInput, setUserInput] = useState({
     enteredTitle: "",
     enteredAmount: "",
@@ -31,12 +31,12 @@ const ExpenseForm = () => {
 
   const submitHandler = (event) => {
     event.preventDefault(); // this disables the default behaviour of sending a request to the server on form submission and re-render
-    const expenseDate = {
+    const expenseData = {
       title: userInput.enteredTitle,
       amount: userInput.enteredAmount,
       date: new Date(userInput.enteredDate),
     };
-    console.log(expenseDate);
+    props.onSaveExpenseData(expenseData)
     setUserInput({
       enteredTitle: "",
       enteredAmount: "",

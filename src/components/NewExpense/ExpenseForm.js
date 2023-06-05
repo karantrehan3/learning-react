@@ -7,6 +7,7 @@ const ExpenseForm = (props) => {
     enteredAmount: "",
     enteredDate: new Date().toISOString().substring(0, 10),
   });
+  const [showForm, setShowForm] = useState(false);
 
   const titleChangeHandler = (event) => {
     setUserInput((prevState) => ({
@@ -29,6 +30,10 @@ const ExpenseForm = (props) => {
     }));
   };
 
+  const formVisibilityHandler = () => {
+    setShowForm((prevState) => !prevState);
+  };
+
   const submitHandler = (event) => {
     event.preventDefault(); // this disables the default behaviour of sending a request to the server on form submission and re-render
     const expenseData = {
@@ -42,8 +47,16 @@ const ExpenseForm = (props) => {
       enteredAmount: "",
       enteredDate: new Date().toISOString().substring(0, 10),
     });
+    formVisibilityHandler();
   };
 
+  if (!showForm) {
+    return (
+      <div className="new-expense__actions">
+        <button onClick={formVisibilityHandler}>Add New Expense</button>
+      </div>
+    );
+  }
   return (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
@@ -77,7 +90,8 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
-        <button type="submit"> Add Expense</button>
+        <button type="button" onClick={formVisibilityHandler}>Cancel</button>
+        <button type="submit">Add Expense</button>
       </div>
     </form>
   );
